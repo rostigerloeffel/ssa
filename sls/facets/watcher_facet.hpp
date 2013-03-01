@@ -11,7 +11,7 @@
 namespace sls { namespace facets {
 
 
-facet_begin(watcher)
+begin_facet(watcher)
     facet_constr(watcher)
 
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
@@ -41,7 +41,7 @@ facet_begin(watcher)
     {
         inner_state_[clause].watcher2 = variable;
     }
-};
+end_facet
 
 
 } /* facets */ } /* sls */

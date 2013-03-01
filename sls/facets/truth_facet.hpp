@@ -11,7 +11,7 @@
 namespace sls { namespace facets {
 
 
-facet_begin(truth)
+begin_facet(truth)
     facet_constr(truth)
 
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
@@ -39,7 +39,7 @@ facet_begin(truth)
     {
         return (literal.polarity() ? truth(literal.variable()) : !truth(literal.variable()));
     }
-}; 
+end_facet 
 
 
 } /* facets */ } /* sls */

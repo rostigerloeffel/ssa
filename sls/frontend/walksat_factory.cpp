@@ -49,13 +49,7 @@ ssa::solvers::solver_base* const create_walksat_sat_solver(
                     problem,
                     *(new ssa::transitions::default_initializer<walksat_state>()),
                     *(new ssa::transitions::default_transitor<walksat_state>()),
-                    new sls::selectors::compositor<walksat_state>
-                    {
-                        new sls::selectors::greedy<walksat_state>(),
-                        new sls::selectors::reweighting_selector<walksat_state>(
-                            new sls::selectors::oldest<walksat_state>(),
-                            new ssa::reweight::swcc<walksat_state>())
-                    });
+                    new sls::selectors::wsat<walksat_state>());
 }
 
 

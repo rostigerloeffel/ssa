@@ -21,6 +21,8 @@
 #include "../properties/common_variable_properties.hpp"
 #include "../properties/common_clause_properties.hpp"
 
+#include "../selectors/wsat.hpp"
+
 #include "../solvers/gensat.hpp"
 
 #include "../transitions/transition_typedefs.hpp"

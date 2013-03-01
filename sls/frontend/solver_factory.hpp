@@ -1,5 +1,5 @@
-#ifndef __SSA_FRONTEND_SOLVER_FACTORY_HPP__
-#define __SSA_FRONTEND_SOLVER_FACTORY_HPP__
+#ifndef _SLS_FRONTEND_SOLVER_FACTORY_HPP_
+#define _SLS_FRONTEND_SOLVER_FACTORY_HPP_
 
 
 #include <iostream>
@@ -7,37 +7,38 @@
 #include "../util/commandline.hpp"
 #include "dimacs_parser.hpp"
 #include "problem_types.hpp"
-#include "sparrow_factory.hpp"
+#include "walksat_factory.hpp"
+/*#include "sparrow_factory.hpp"
 #include "swcc_factory.hpp"
 #include "sattime_factory.hpp"
-#include "ssa2013_factory.hpp"
+#include "ssa2013_factory.hpp"*/
 
 
-namespace ssa { namespace frontend {
+namespace sls { namespace frontend {
 
 
-inline ssa::solvers::solver_base* const create_sat_solver(
+inline sls::solvers::solver_base* const create_sat_solver(
                                                 problem const& problem, 
                                                 sls::util::commandline const& cmd)
 {
-    return create_sparrow_sat_solver(problem, cmd);
+    return create_walksat_sat_solver(problem, cmd);
 }
 
-inline ssa::solvers::solver_base* const create_maxsat_solver(
+inline sls::solvers::solver_base* const create_maxsat_solver(
                                                 problem const& problem, 
                                                 sls::util::commandline const& cmd)
 {
-    return create_sparrow_maxsat_solver(problem, cmd);
+    return create_walksat_sat_solver(problem, cmd);
 }
 
-inline ssa::solvers::solver_base* const create_weighted_maxsat_solver(
+inline sls::solvers::solver_base* const create_weighted_maxsat_solver(
                                                 problem const& problem, 
                                                 sls::util::commandline const& cmd)
 {
-    return create_sparrow_weighted_maxsat_solver(problem, cmd);
+    return create_walksat_sat_solver(problem, cmd);
 }
 
-inline ssa::solvers::solver_base* const create_solver(
+inline sls::solvers::solver_base* const create_solver(
                                                 sls::util::commandline const& cmd)
 {
     auto file   = cmd.get("-file", std::string("test.cnf"));
@@ -75,7 +76,7 @@ inline ssa::solvers::solver_base* const create_solver(
 }
 
 
-} /* frontend */ } /* ssa */
+} /* frontend */ } /* sls */
 
 
 #endif

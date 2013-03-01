@@ -3,7 +3,6 @@
 
 
 #define begin_facet(name, ...) \
-	#define facet_name name \
 	template \
 	< \
 		typename State, \
@@ -29,7 +28,7 @@
 \
 	private: \
 	    inner_state_type& inner_state_;
-	    
+
 #define facet_constr(name, ...) \
 	public: \
 		name##_facet(inner_state_type& inner_state) \
@@ -38,7 +37,6 @@
 	    }
 
 #define end_facet \
-	#undef facet_name \ 
 	};
 
 #define state (*static_cast<State*>(this))

@@ -2,9 +2,6 @@
 #define _SLS_PROPERTIES_COMMON_CLAUSE_PROPERTIES_HPP_
 
 
-#include "../util/int_typedefs.hpp"
-
-
 namespace sls { namespace properties {
 
 

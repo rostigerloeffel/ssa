@@ -9,7 +9,7 @@ namespace sls { namespace state {
 
 
 #define DECL_STATE(name, sat, props, facets) \
-	typedef inner_state<sat, props> name##_inner_state; \ 
+	typedef inner_state<sat, props> name##_inner_state; \
 	struct name##_state : public facets<name##_state, name##_inner_state> {};
 
 

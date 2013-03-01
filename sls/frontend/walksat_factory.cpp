@@ -25,13 +25,10 @@ struct properties
 template<typename State, typename InnerState>
 using facets = sls::facets::facet_compositor<
     State, InnerState,
-    sls::facets::neighbour_facet<State, InnerState>,
-    sls::facets::cc_greedy_facet<State, InnerState>,
-    sls::facets::age_facet<State, InnerState>,
     sls::facets::truth_facet<State, InnerState>,
+    sls::facets::breakcount_facet<State, InnerState>,
     sls::facets::watcher_facet<State, InnerState>,
-    sls::facets::avg_weight_facet<State, InnerState>,
-    sls::facets::broken_facet<State, InnerState>
+    sls::facets::unsat_facet<State, InnerState>
 >;
 
 DECL_STATE(walksat, sat, properties, facets)

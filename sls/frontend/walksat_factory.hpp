@@ -13,7 +13,7 @@
 #include "../facets/truth_facet.hpp"
 #include "../facets/unsat_facet.hpp"
 #include "../facets/watcher_facet.hpp"
-#include "../facets/score_sender_facet.hpp"
+#include "../facets/breakcount_facet.hpp"
 
 #include "../sat/standard/sat.hpp"
 #include "../sat/ksat/sat.hpp"

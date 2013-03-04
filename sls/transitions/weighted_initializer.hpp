@@ -1,5 +1,5 @@
-#ifndef __SLS_TRANSITIONS_WEIGHT_INITIALIZER_BASE_HPP__
-#define __SLS_TRANSITIONS_WEIGHT_INITIALIZER_BASE_HPP__
+#ifndef _SLS_TRANSITIONS_WEIGHT_INITIALIZER_BASE_HPP_
+#define _SLS_TRANSITIONS_WEIGHT_INITIALIZER_BASE_HPP_
 
 
 #include <vector>
@@ -8,7 +8,7 @@
 #include "../frontend/problem_types.hpp"
 
 
-namespace ssa { namespace transitions {
+namespace sls { namespace transitions {
 
 
 template<typename StateType>
@@ -21,7 +21,7 @@ class weighted_initializer : public weighted_initializer_base<StateType>
 	typedef typename state_type::variable_type	variable_type;
 
 public:
-	state_type operator()(ssa::frontend::problem const& problem) const
+	state_type operator()(sls::frontend::problem const& problem) const
 	{
 		std::vector<clause_type> clauses;
 		clauses.reserve(problem.clauses.size());
@@ -52,7 +52,7 @@ public:
 			state.unsat_sum() += state.weight(clause);
 		}
 
-	    // setup broken-facet (depends on truth-facet)
+	    // setup unsat-facet (depends on truth-facet)
 	    for(auto clause : state.clauses())
 	        for(auto literal : clause)
 	            if(state.is_sat(literal))
@@ -85,7 +85,7 @@ public:
 };
 
 
-} /* transitions */ } /* ssa */
+} /* transitions */ } /* sls */
 
 
 #endif

@@ -58,7 +58,7 @@ private:
 end_facet
 
 
-} /* facets */ } /* ssa */
+} /* facets */ } /* sls */
 
 
 #endif

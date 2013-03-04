@@ -1,8 +1,8 @@
-#ifndef __SSA_TRANSITIONS_WATCHERLIST_TRANSITION_HPP__
-#define __SSA_TRANSITIONS_WATCHERLIST_TRANSITION_HPP__
+#ifndef _SLS_TRANSITIONS_WATCHERLIST_TRANSITION_HPP_
+#define _SLS_TRANSITIONS_WATCHERLIST_TRANSITION_HPP_
 
 
-namespace ssa { namespace transitions { 
+namespace sls { namespace transitions { 
 
 namespace internal {
 
@@ -49,7 +49,7 @@ void _becomes_unsat_wl(StateType& state, typename StateType::clause_type clause,
 
         state.inc_score(flip, state.weight(clause));
 
-        state.broken().push_back(clause);
+        state.unsat().push_back(clause);
     }
     else if(state.watcher2(clause) == sat_type::variable_type::null())
         state.dec_score(state.watcher1(clause), state.weight(clause));
@@ -79,7 +79,7 @@ void _becomes_sat_wl(StateType& state, typename StateType::clause_type clause, t
         state.watcher1(clause, flip);
         state.watcherlist(flip).push_back(clause);
 
-        state.broken().remove(clause);
+        state.unsat().remove(clause);
     }
     else if(state.watcher2(clause) == sat_type::variable_type::null())
     {
@@ -141,7 +141,7 @@ std::cout << "now 2 " << (state.truth(flip) ? "" : "-") << flip << " score=" << 
 }
 
 
-} /* transitions */ } /* ssa */
+} /* transitions */ } /* sls */
 
 
 #endif

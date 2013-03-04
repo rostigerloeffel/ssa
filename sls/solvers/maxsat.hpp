@@ -56,9 +56,9 @@ public:
 	    auto flips = 0;
 	    auto state = initializer_(problem_);
 
-	    auto current_optimum_sum = state.broken().size();
+	    auto current_optimum_sum = state.unsat().size();
 
-	    while(!sls::util::is_interrupted() && state.broken().size() > 0ul && time < maxtime_)
+	    while(!sls::util::is_interrupted() && state.unsat().size() > 0ul && time < maxtime_)
 	    {
 	        state.before_pick(flips);
 	        selector_->before_pick(state);
@@ -75,9 +75,9 @@ public:
 
 	        time = static_cast<double>(end - start) / static_cast<double>(CLOCKS_PER_SEC);
 
-	        if(state.broken().size() < current_optimum_sum)
+	        if(state.unsat().size() < current_optimum_sum)
 	        {
-	        	current_optimum_sum = state.broken().size();
+	        	current_optimum_sum = state.unsat().size();
 	        	std::cout << "o " << current_optimum_sum << std::endl;
 	        	// do some fancy stuff to keep current assignment
 	        }

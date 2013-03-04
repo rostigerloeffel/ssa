@@ -40,7 +40,7 @@ namespace ssa { namespace frontend {
 //         >,
 //         sls::facets::watcher_facet<inner_state>,
 //         sls::facets::weight_facet<inner_state>,
-//         sls::facets::broken_facet<inner_state>
+//         sls::facets::unsat_facet<inner_state>
 //     >
 // > sat_state_type;
 

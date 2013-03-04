@@ -1,5 +1,5 @@
-#ifndef __SSA_COUNTING_OCC_TRANSITOR_HPP__
-#define __SSA_COUNTING_OCC_TRANSITOR_HPP__
+#ifndef _SLS_COUNTING_OCC_TRANSITOR_HPP_
+#define _SLS_COUNTING_OCC_TRANSITOR_HPP_
 
 
 #include <iostream>
@@ -8,7 +8,7 @@
 #include "transitor_base.hpp"
 
 
-namespace ssa { namespace transitions {
+namespace sls { namespace transitions {
 
 
 template
@@ -20,9 +20,8 @@ template
 class counting_occ_transitor : public transitor_base<StateType>
 {
 public:
-	typedef StateType 							state_type;
-	typedef typename state_type::sat_type 		sat_type;
-	typedef typename state_type::variable_type	variable_type;
+	STATE_TYPEDEFS(StateType)
+
 	typedef HandlePlus 							handle_plus_policy;
 	typedef HandleMinus 						handle_minus_policy;
 

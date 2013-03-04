@@ -1,22 +1,21 @@
-#ifndef __SSA_TRANSITIONS_TRANSITOR_BASE_HPP__
-#define __SSA_TRANSITIONS_TRANSITOR_BASE_HPP__
+#ifndef _SLS_TRANSITIONS_TRANSITOR_BASE_HPP_
+#define _SLS_TRANSITIONS_TRANSITOR_BASE_HPP_
 
 
-namespace ssa { namespace transitions {
+namespace sls { namespace transitions {
 
 
 template<typename StateType>
 class transitor_base
 {
-	typedef StateType 							state_type;
-	typedef typename state_type::variable_type 	variable_type;
+	STATE_TYPEDEFS(StateType)
 
 public:
 	virtual void operator()(state_type& state, variable_type flip) = 0;
 };
 
 
-} /* transitions */ } /* ssa */
+} /* transitions */ } /* sls */
 
 
 #endif

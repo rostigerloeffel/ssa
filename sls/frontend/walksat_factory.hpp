@@ -2,6 +2,8 @@
 #define _SLS_UTIL_SPARROW_FACTORY_HPP_
 
 
+#include <iostream>
+
 #include "../util/commandline.hpp"
 
 #include "problem_types.hpp"
@@ -14,6 +16,7 @@
 #include "../facets/unsat_facet.hpp"
 #include "../facets/watcher_facet.hpp"
 #include "../facets/breakcount_facet.hpp"
+#include "../facets/null_weight_facet.hpp"
 
 #include "../sat/standard/sat.hpp"
 #include "../sat/ksat/sat.hpp"

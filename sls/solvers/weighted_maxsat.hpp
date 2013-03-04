@@ -57,7 +57,7 @@ public:
 
 	    std::cout << "c top-weight = " << problem_.top_weight << std::endl;
 
-	    while(!sls::util::is_interrupted() && state.broken().size() > 0 && time < maxtime_)
+	    while(!sls::util::is_interrupted() && state.unsat().size() > 0 && time < maxtime_)
 	    {
 	        state.before_pick(flips);
 	        selector_->before_pick(state);

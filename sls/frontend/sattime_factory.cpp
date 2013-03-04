@@ -38,7 +38,7 @@ namespace ssa { namespace frontend {
 //         sls::facets::promising_age_facet<inner_state>,
 //         sls::facets::watcher_facet<inner_state>,
 //         sls::facets::weight_facet<inner_state>,
-//         sls::facets::broken_facet<inner_state>,
+//         sls::facets::unsat_facet<inner_state>,
 //         sls::facets::satisfying_facet<inner_state>
 //     >
 // > state_type;

@@ -27,16 +27,16 @@ public:
 	typedef typename sat_type::clause_type		clause_type;
 
 private:
-	ssa::frontend::problem		 						problem_;
-	ssa::transitions::initializer_base<state_type>&		initializer_;
-	ssa::transitions::transitor_base<state_type>&		transitor_;
+	sls::frontend::problem		 						problem_;
+	sls::transitions::initializer_base<state_type>&		initializer_;
+	sls::transitions::transitor_base<state_type>&		transitor_;
 	sls::selectors::selector_base<state_type>* const	selector_;
 
 public:
 	gensat(
-		ssa::frontend::problem const& problem,	
-		ssa::transitions::initializer_base<state_type>& initializer,
-		ssa::transitions::transitor_base<state_type>& transitor,
+		sls::frontend::problem const& problem,	
+		sls::transitions::initializer_base<state_type>& initializer,
+		sls::transitions::transitor_base<state_type>& transitor,
 		sls::selectors::selector_base<state_type>* const selector)
 		: 	problem_(problem),
 			initializer_(initializer),
@@ -59,7 +59,7 @@ public:
 
 	    start = std::clock();
 
-	    while(!sls::util::is_interrupted() && state.broken().size() > 0 && flips < 2000000000)
+	    while(!sls::util::is_interrupted() && state.unsats().size() > 0 && flips < 2000000000)
 	    {
 	        state.before_pick(flips);
 	        selector_->before_pick(state);

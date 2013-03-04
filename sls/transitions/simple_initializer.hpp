@@ -1,24 +1,21 @@
-#ifndef __SSA_TRANSITIONS_SIMPLE_INITIALIZER_BASE_HPP__
-#define __SSA_TRANSITIONS_SIMPLE_INITIALIZER_BASE_HPP__
+#ifndef _SLS_TRANSITIONS_SIMPLE_INITIALIZER_BASE_HPP_
+#define _SLS_TRANSITIONS_SIMPLE_INITIALIZER_BASE_HPP_
 
 
 #include "initializer_base.hpp"
 #include "../frontend/problem_types.hpp"
 
 
-namespace ssa { namespace transitions {
+namespace sls { namespace transitions {
 
 
 template<typename StateType>
 class simple_initializer : public initializer_base<StateType>
 {
-	typedef StateType 							state_type;
-    typedef typename state_type::sat_type       sat_type;
-	typedef typename state_type::clause_type 	clause_type;
-	typedef typename state_type::literal_type	literal_type;
+	STATE_TYPEDEFS(StateType)
 
 public:
-	state_type operator()(ssa::frontend::problem const& problem) const
+	state_type operator()(sls::frontend::problem const& problem) const
 	{
 		std::vector<clause_type> clauses;
 		clauses.reserve(problem.clauses.size());
@@ -46,7 +43,7 @@ public:
     	typedef decltype(state_type::variable_properties_type::score) score_type;
 
 
-	    // setup broken-facet (depends on truth-facet)
+	    // setup unsat-facet (depends on truth-facet)
 	    for(auto clause : state.clauses())
 	        for(auto literal : clause)
 	            if(state.is_sat(literal))
@@ -65,7 +62,7 @@ public:
 	        auto positive_literal = sat_type::make_literal(variable, state.truth(variable));
 	        auto negative_literal = sat_type::make_literal(variable, !state.truth(variable));
 
-	        for(auto clause : state.clauses_by_literal(positive_literal))
+	        for(clause_type clause : state.clauses_by_literal(positive_literal))
 	            if(state.num_true_literals(clause) == 1)
 	                state.inc_breakcount(variable, score_type(1));
 
@@ -79,7 +76,7 @@ public:
 };
 
 
-} /* transitions */ } /* ssa */
+} /* transitions */ } /* sls */
 
 
 #endif

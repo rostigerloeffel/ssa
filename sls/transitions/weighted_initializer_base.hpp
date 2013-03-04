@@ -1,11 +1,11 @@
-#ifndef __SSA_TRANSITIONS_WEIGHTED_INITIALIZER_BASE_HPP__
-#define __SSA_TRANSITIONS_WEIGHTED_INITIALIZER_BASE_HPP__
+#ifndef _SLS_TRANSITIONS_WEIGHTED_INITIALIZER_BASE_HPP_
+#define _SLS_TRANSITIONS_WEIGHTED_INITIALIZER_BASE_HPP_
 
 
 #include "../frontend/problem_types.hpp"
 
 
-namespace ssa { namespace transitions {
+namespace sls { namespace transitions {
 
 
 template<typename StateType>
@@ -15,11 +15,11 @@ class weighted_initializer_base
 	typedef typename state_type::clause_type 	clause_type;
 
 public:
-	virtual state_type operator()(ssa::frontend::problem const& problem) const = 0;
+	virtual state_type operator()(sls::frontend::problem const& problem) const = 0;
 };
 
 
-} /* transitions */ } /* ssa */
+} /* transitions */ } /* sls */
 
 
 #endif

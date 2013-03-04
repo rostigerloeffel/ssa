@@ -2,6 +2,9 @@
 #define _SLS_STATE_INNER_STATE_HPP_
 
 
+#include "state_lang.hpp"
+
+
 namespace sls { namespace state {
 
 
@@ -16,15 +19,8 @@ template
 class inner_state
 {
 public:
-    typedef SAT 	                                            			sat_type;
-    typedef typename sat_type::clause_type                      			clause_type;
-    typedef typename sat_type::literal_type                     			literal_type;
-    typedef typename sat_type::variable_type                    			variable_type;
-
-    typedef Properties                                          			properties_type;
-    typedef typename properties_type::variable_properties_type  			variable_properties_type;
-    typedef typename properties_type::literal_properties_type   			literal_properties_type;
-    typedef typename properties_type::clause_properties_type    			clause_properties_type;
+    SAT_TYPEDEFS(SAT)
+    PROP_TYPEDEFS(Properties)
 
     typedef typename std::vector<variable_properties_type>::iterator 		variable_properties_iterator;
     typedef typename std::vector<variable_properties_type>::const_iterator	const_variable_properties_iterator;

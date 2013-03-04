@@ -22,30 +22,33 @@ struct properties
     typedef clause clause_properties_type;
 };
 
+}
+
 template<typename State, typename InnerState>
-using facets = sls::facets::facet_compositor<
+using walksat_facets = sls::facets::facet_compositor<
     State, InnerState,
     sls::facets::truth_facet<State, InnerState>,
     sls::facets::breakcount_facet<State, InnerState>,
     sls::facets::watcher_facet<State, InnerState>,
-    sls::facets::unsat_facet<State, InnerState>
+    sls::facets::unsat_facet<State, InnerState>,
+    sls::facets::null_weight_facet<State, InnerState>
 >;
 
-DECL_STATE(walksat, sat, properties, facets)
+DECL_STATE(walksat, sat, properties, sls::frontend::walksat_facets)
 
-} /* unnamed */
+//} /* unnamed */
 
 
-ssa::solvers::solver_base* const create_walksat_sat_solver(
-                                            problem const& problem, 
+sls::solvers::solver_base* const create_walksat_sat_solver(
+                                            problem const& problem,
                                             sls::util::commandline const& cmd)
 {
     std::cerr << "c create walksat sat solver" << std::endl;
 
-    return new ssa::solvers::gensat<walksat_state>(
+    return new sls::solvers::gensat<walksat_state>(
                     problem,
-                    *(new ssa::transitions::default_initializer<walksat_state>()),
-                    *(new ssa::transitions::default_transitor<walksat_state>()),
+                    *(new sls::transitions::default_initializer<walksat_state>()),
+                    *(new sls::transitions::default_transitor<walksat_state>()),
                     new sls::selectors::wsat<walksat_state>());
 }
 

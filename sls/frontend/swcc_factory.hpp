@@ -12,7 +12,7 @@
 #include "../facets/facet_compositor.hpp"
 #include "../facets/truth_facet.hpp"
 #include "../facets/promising_greedy_facet.hpp"
-#include "../facets/broken_facet.hpp"
+#include "../facets/unsat_facet.hpp"
 #include "../facets/watcher_facet.hpp"
 #include "../facets/avg_weight_facet.hpp"
 #include "../facets/age_facet.hpp"

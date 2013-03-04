@@ -31,15 +31,16 @@
 
 #define facet_constr(name, ...) \
 	public: \
-		name##_facet(inner_state_type& inner_state) \
-			:	inner_state_(inner_state), ##__VA_ARGS__ \
+		name##_facet() \
+			:	__VA_ARGS__ \
 	    { \
 	    }
 
 #define end_facet \
 	};
 
-#define state (*static_cast<State*>(this))
+#define this_state (*static_cast<State*>(this))
+#define inner_state (static_cast<State*>(this)->inner_state_)
 
 
 #endif

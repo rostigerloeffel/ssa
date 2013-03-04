@@ -1,5 +1,5 @@
-#ifndef __SSA_FRONTEND_PROBLEM_TYPES_HPP__
-#define __SSA_FRONTEND_PROBLEM_TYPES_HPP__
+#ifndef _SLS_FRONTEND_PROBLEM_TYPES_HPP_
+#define _SLS_FRONTEND_PROBLEM_TYPES_HPP_
 
 
 #include <vector>
@@ -7,7 +7,7 @@
 #include <limits>
 
 
-namespace ssa { namespace frontend {
+namespace sls { namespace frontend {
 
 
 struct clause
@@ -95,7 +95,7 @@ struct partial_weighted_maxsat_problem
 };
 
 
-} /* frontend */ } /* ssa */ 
+} /* frontend */ } /* sls */ 
 
 
 #endif

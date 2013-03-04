@@ -1,8 +1,8 @@
-#ifndef __SSA_SOLVERS_SOLVER_BASE_HPP__
-#define __SSA_SOLVERS_SOLVER_BASE_HPP__
+#ifndef _SLS_SOLVERS_SOLVER_BASE_HPP_
+#define _SLS_SOLVERS_SOLVER_BASE_HPP_
 
 
-namespace ssa { namespace solvers {
+namespace sls { namespace solvers {
 
 
 class solver_base
@@ -12,7 +12,7 @@ public:
 };
 
 
-} /* solvers */ } /* ssa */
+} /* solvers */ } /* sls */
 
 
 #endif

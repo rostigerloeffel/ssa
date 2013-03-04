@@ -61,7 +61,7 @@ public:
 
 	    auto state = initializer_(clauses_, variable_count_);
 
-	    while(!sls::util::is_interrupted() && state.broken().size() > 0)
+	    while(!sls::util::is_interrupted() && state.unsat().size() > 0)
 	    {
 	    	
 	    	

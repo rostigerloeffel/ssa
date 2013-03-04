@@ -50,11 +50,12 @@ private:
     clause_store_type                   	clauses_;
 
 public:
-	inner_state(size_t clause_count, size_t variable_count)
+	inner_state(std::vector<clause_type> const& clauses, size_t variable_count)
 		:	variable_properties_(variable_count), 
             literal_properties_(variable_count * 2), 
-            clause_properties_(clause_count)
+            clause_properties_(clauses.size())
     {
+    	prepare(clauses, variable_count);
     }
 
     inline void prepare(std::vector<clause_type> const& clauses, size_t variable_count)

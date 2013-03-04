@@ -14,40 +14,37 @@
     typedef typename properties_type::literal_properties_type   literal_properties_type; \
     typedef typename properties_type::clause_properties_type    clause_properties_type;
 
-#define STATE_TYPEDEFS(state) \
-	typedef state state_type; \
-    SAT_TYPEDEFS(typename state_type::sat_type) \
-    PROP_TYPEDEFS(typename state_type::properties_type)
-
 #define INNER_STATE_TYPEDEFS(innerstate) \
-	typedef InnerState                                  	inner_state_type; \
+	typedef innerstate                                  	inner_state_type; \
     typedef typename inner_state_type::variable_store_type 	variable_store_type; \
     typedef typename inner_state_type::literal_store_type  	literal_store_type; \
 	typedef typename inner_state_type::clause_store_type   	clause_store_type; \
 	SAT_TYPEDEFS(typename inner_state_type::sat_type) \
 	PROP_TYPEDEFS(typename inner_state_type::properties_type)
 
+#define STATE_TYPEDEFS(state) \
+	typedef state state_type; \
+	INNER_STATE_TYPEDEFS(typename state_type::inner_state_type)
+
 #define DECL_STATE(name, sat, props, facets) \
 	typedef sls::state::inner_state<sat, props> name##_inner_state; \
-	class name##_state : public sls::state::state_interface<name##_inner_state>, \
-						 public facets<name##_state, name##_inner_state> \
+	struct name##_state : public sls::state::state_interface<name##_state>, \
+						  public facets<name##_state> \
 	{ \
-	public: \
-		SAT_TYPEDEFS(sat) \
-		PROP_TYPEDEFS(props) \
+		INNER_STATE_TYPEDEFS(name##_inner_state) \
 \
-	private: \
-		name##_inner_state inner_state_; \
+		inner_state_type inner_state_; \
 \
-	public: \
 		name##_state(std::vector<clause_type> const& clauses, size_t variable_count) \
 			:	inner_state_(clauses, variable_count), \
-				state_interface(inner_state_), \
-				facets(inner_state_) \
+				state_interface(), \
+				facets() \
 		{ \
 			reset(clauses, variable_count); \
 		} \
 	};
+
+#define get_inner_state (static_cast<State*>(this)->inner_state_)
 
 
 #endif

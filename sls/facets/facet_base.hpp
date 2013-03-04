@@ -8,15 +8,13 @@
 namespace sls { namespace facets {
 
 
-template
-<
-    typename State,
-	typename InnerState
->
+template<typename State>
 class facet_base
 {
 public:
-    typedef InnerState                                          inner_state_type;
+    typedef State                                               state_type;
+
+    typedef typename state_type::inner_state_type               inner_state_type;
     typedef typename inner_state_type::sat_type                 sat_type;
     typedef typename inner_state_type::properties_type          properties_type;
 

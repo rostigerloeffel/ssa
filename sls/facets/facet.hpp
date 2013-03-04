@@ -2,32 +2,19 @@
 #define _SLS_FACETS_FACET_HPP_
 
 
+#include "../state/state_lang.hpp"
+
+
 #define begin_facet(name, ...) \
 	template \
 	< \
 		typename State, \
-	    typename InnerState, \
 	    ##__VA_ARGS__ \
 	> \
-	class name##_facet : public facet_base<State, InnerState> \
+	struct name##_facet : public facet_base<State> \
 	{ \
-	public: \
-		typedef State 												state_type; \
-\
-	    typedef InnerState                                          inner_state_type; \
-	    typedef typename inner_state_type::sat_type                 sat_type; \
-	    typedef typename inner_state_type::properties_type          properties_type; \
-\
-	    typedef typename sat_type::clause_type                      clause_type; \
-	    typedef typename sat_type::literal_type                     literal_type; \
-	    typedef typename sat_type::variable_type                    variable_type; \
-\
-	    typedef typename properties_type::variable_properties_type  variable_properties_type; \
-	    typedef typename properties_type::literal_properties_type   literal_properties_type; \
-	    typedef typename properties_type::clause_properties_type    clause_properties_type; \
-\
-	private: \
-	    inner_state_type& inner_state_;
+		STATE_TYPEDEFS(State)
+
 
 #define facet_constr(name, ...) \
 	public: \
@@ -40,7 +27,6 @@
 	};
 
 #define this_state (*static_cast<State*>(this))
-#define inner_state (static_cast<State*>(this)->inner_state_)
 
 
 #endif

@@ -12,8 +12,6 @@ namespace sls { namespace facets {
 
 
 begin_facet(truth)
-    facet_constr(truth)
-
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {
         randomize();
@@ -21,18 +19,18 @@ begin_facet(truth)
 
     inline void randomize()
     {
-        std::for_each(inner_state_.variable_properties_begin(), inner_state_.variable_properties_end(), 
+        std::for_each(get_inner_state.variable_properties_begin(), get_inner_state.variable_properties_end(), 
         	[](variable_properties_type& prop){ prop.truth = static_cast<bool>(std::rand() % 2); });
     }
 
     inline void flip(variable_type variable)
     {
-        inner_state_[variable].truth = !inner_state_[variable].truth;
+        get_inner_state[variable].truth = !get_inner_state[variable].truth;
     }
 
     inline bool truth(variable_type variable) const
     {
-        return inner_state_[variable].truth;
+        return get_inner_state[variable].truth;
     }
 
     inline bool is_sat(literal_type literal) const

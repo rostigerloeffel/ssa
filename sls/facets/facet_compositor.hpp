@@ -31,11 +31,6 @@ public:
     typedef typename properties_type::clause_properties_type    clause_properties_type;
 
 public:
-    facet_compositor(inner_state_type& inner_state)
-        :   Facets(inner_state)...
-    {
-    }
-
     // call the reset-method of each facet in a well-defined manner
     template<typename Facet>
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)

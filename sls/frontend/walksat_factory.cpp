@@ -24,14 +24,14 @@ struct properties
 
 }
 
-template<typename State, typename InnerState>
+template<typename State>
 using walksat_facets = sls::facets::facet_compositor<
-    State, InnerState,
-    sls::facets::truth_facet<State, InnerState>,
-    sls::facets::breakcount_facet<State, InnerState>,
-    sls::facets::watcher_facet<State, InnerState>,
-    sls::facets::unsat_facet<State, InnerState>,
-    sls::facets::null_weight_facet<State, InnerState>
+    State,
+    sls::facets::truth_facet<State>,
+    sls::facets::breakcount_facet<State>,
+    sls::facets::watcher_facet<State>,
+    sls::facets::unsat_facet<State>,
+    sls::facets::null_weight_facet<State>
 >;
 
 DECL_STATE(walksat, sat, properties, sls::frontend::walksat_facets)

@@ -9,64 +9,59 @@
 namespace sls { namespace state {
 
 
-template<typename InnerState>
+template<typename State>
 class state_interface
 {
 public:
-	INNER_STATE_TYPEDEFS(InnerState)
+    INNER_STATE_TYPEDEFS(typename State::inner_state_type)
 
 private:
-    inner_state_type&                   inner_state_;
-
     std::vector<clause_store_type>      literal_index_to_clauses_;
     std::vector<clause_store_type>      variable_index_to_clauses_;
     std::vector<variable_store_type>    variable_index_to_variables_;
 
 public:
-    state_interface(inner_state_type& inner_state)
-        :   inner_state_(inner_state),
-            literal_index_to_clauses_(), 
+    state_interface()
+        :   literal_index_to_clauses_(), 
             variable_index_to_clauses_(), 
             variable_index_to_variables_()
     {
-        prepare(clauses, variable_count);
+        prepare();
     }
 
-    void prepare(std::vector<clause_type> const& clauses, size_t variable_count)
+    void prepare()
     {
-        inner_state_.prepare(clauses, variable_count);
-
-        literal_index_to_clauses_.resize(inner_state_.literals().size());
-        for(auto clause : inner_state_.clauses())
+        literal_index_to_clauses_.resize(get_inner_state.literals().size());
+        for(auto clause : get_inner_state.clauses())
             for(auto literal : clause)
                 literal_index_to_clauses_[sat_type::index(literal)].push_back(clause);
 
         variable_index_to_clauses_.resize(variables().size());
-        for(auto clause : inner_state_.clauses())
+        for(auto clause : get_inner_state.clauses())
             for(auto literal : clause)
                 variable_index_to_clauses_[sat_type::index(literal.variable())].push_back(clause);
 
         variable_index_to_variables_.resize(variables().size());
-        for(auto clause : inner_state_.clauses())
+        for(auto clause : get_inner_state.clauses())
             for(auto literal1 : clause)
                 for(auto literal2 : clause)
                     if(literal1 != literal2)
                         variable_index_to_variables_[sat_type::index(literal1.variable())].push_back(literal2.variable());
     }
 
-    inline clause_store_type const& clauses() const
+    inline variable_store_type const& variables() const
     {
-        return inner_state_.clauses();
+        return get_inner_state.variables();
     }
 
     inline literal_store_type const& literals() const
     {
-        return inner_state_.literals();
+        return get_inner_state.literals();
     }
 
-    inline variable_store_type const& variables() const
+    inline clause_store_type const& clauses() const
     {
-        return inner_state_.variables();
+        return get_inner_state.clauses();
     }
 
     inline clause_store_type const& clauses_by_literal(literal_type literal) const

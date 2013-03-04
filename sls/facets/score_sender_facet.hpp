@@ -13,11 +13,9 @@ namespace sls { namespace facets {
 begin_facet(score_sender, typename ...ScoreListener)
     typedef decltype(variable_properties_type::score) score_type;
 
-    facet_constr(score_sender)
-
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {
-        std::for_each(inner_state_.variable_properties_begin(), inner_state_.variable_properties_end(), 
+        std::for_each(get_inner_state.variable_properties_begin(), get_inner_state.variable_properties_end(), 
         	[](variable_properties_type& prop){ 
                 prop.score = score_type(0); 
             });
@@ -25,30 +23,30 @@ begin_facet(score_sender, typename ...ScoreListener)
 
     inline score_type score(variable_type variable) const
     {
-        return inner_state_[variable].score;
+        return get_inner_state[variable].score;
     }
 
     inline void inc_makecount(variable_type variable, score_type diff)
     {
-        inner_state_[variable].score += diff;
+        get_inner_state[variable].score += diff;
         send_signal(score_inc, variable, diff);
     }
 
     inline void dec_makecount(variable_type variable, score_type diff)
     {
-        inner_state_[variable].score -= diff;
+        get_inner_state[variable].score -= diff;
         send_signal(score_dec, variable, diff);
     }
 
     inline void inc_breakcount(variable_type variable, score_type diff)
     {
-        inner_state_[variable].score -= diff;
+        get_inner_state[variable].score -= diff;
         send_signal(score_dec, variable, diff);
     }
 
     inline void dec_breakcount(variable_type variable, score_type diff)
     {
-        inner_state_[variable].score += diff;
+        get_inner_state[variable].score += diff;
         send_signal(score_inc, variable, diff);
     }
 

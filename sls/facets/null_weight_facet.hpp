@@ -13,8 +13,6 @@ begin_facet(null_weight)
 public:
     typedef int weight_type;
 
-	facet_constr(null_weight)
-
     inline weight_type weight(clause_type clause) const
     {
         return weight_type(1);

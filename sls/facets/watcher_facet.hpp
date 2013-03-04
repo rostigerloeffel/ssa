@@ -12,11 +12,9 @@ namespace sls { namespace facets {
 
 
 begin_facet(watcher)
-    facet_constr(watcher)
-
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {
-        std::for_each(inner_state_.clause_properties_begin(), inner_state_.clause_properties_end(), 
+        std::for_each(get_inner_state.clause_properties_begin(), get_inner_state.clause_properties_end(), 
         	[](clause_properties_type& prop){ 
         		prop.watcher1 = sat_type::variable_type::null();
         		prop.watcher2 = sat_type::variable_type::null(); });
@@ -24,22 +22,22 @@ begin_facet(watcher)
 
     inline variable_type watcher1(clause_type clause) const
     {
-        return inner_state_[clause].watcher1;
+        return get_inner_state[clause].watcher1;
     }
 
     inline void watcher1(clause_type clause, variable_type variable)
     {
-        inner_state_[clause].watcher1 = variable;
+        get_inner_state[clause].watcher1 = variable;
     }
 
     inline variable_type watcher2(clause_type clause) const
     {
-        return inner_state_[clause].watcher2;
+        return get_inner_state[clause].watcher2;
     }
 
     inline void watcher2(clause_type clause, variable_type variable)
     {
-        inner_state_[clause].watcher2 = variable;
+        get_inner_state[clause].watcher2 = variable;
     }
 end_facet
 

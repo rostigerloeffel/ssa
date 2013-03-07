@@ -7,6 +7,8 @@
 
 namespace sls { namespace properties {
 
+struct empty
+{};
 
 struct truth
 {

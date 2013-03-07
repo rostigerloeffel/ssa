@@ -4,38 +4,15 @@
 namespace sls { namespace frontend {
 
 
-//namespace wsat {
 
 typedef sls::sat::standard::sat sat;
 
-struct walksat_variable : 
-            public sls::properties::truth, 
-            public sls::properties::score {};
-struct walksat_literal {};
-struct walksat_clause : 
-            public sls::properties::watcher2<typename sat::variable_type>, 
-            public sls::properties::num_true_literals {};
-struct walksat_properties
-{
-    typedef walksat_variable variable_properties_type;
-    typedef walksat_literal literal_properties_type;
-    typedef walksat_clause clause_properties_type;
-};
-
-//}
-
-template<typename State, typename InnerState>
-using walksat_facets = sls::facets::facet_compositor<
-    State, InnerState,
-    sls::facets::truth_facet<State, InnerState>,
-    sls::facets::breakcount_facet<State, InnerState>,
-    sls::facets::watcher_facet<State, InnerState>,
-    sls::facets::unsat_facet<State, InnerState>,
-    sls::facets::null_weight_facet<State, InnerState>
->;
-
-
-DECL_STATE(walksat, sat, walksat_properties, sls::frontend::walksat_facets)
+DECL_PROPERTIES(walksat, 
+    VAR(truth, score),
+    LIT(empty),
+    CLAUSE(watcher2<typename sat::variable_type>, num_true_literals))
+DECL_FACETS(facets, truth_facet, breakcount_facet, watcher_facet, unsat_facet, null_weight_facet)
+DECL_STATE(walksat, sat, walksat::properties, facets)
 
 
 //} /* unnamed */

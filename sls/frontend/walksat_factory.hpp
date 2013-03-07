@@ -7,6 +7,7 @@
 #include "../util/commandline.hpp"
 
 #include "problem_types.hpp"
+#include "frontend_lang.hpp"
 
 #include "../state/state.hpp"
 #include "../state/inner_state.hpp"

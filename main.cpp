@@ -1,10 +1,10 @@
 #define NDEBUG 1
 
 #include <iostream>
-#include "util/commandline.hpp"
-#include "util/signal.hpp"
-#include "util/rand.hpp"
-#include "frontend/solver_factory.hpp"
+#include "sls/util/commandline.hpp"
+#include "sls/util/signal.hpp"
+#include "sls/util/rand.hpp"
+#include "sls/frontend/solver_factory.hpp"
 
 
 int main(int argc, char** argv)

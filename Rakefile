@@ -1,7 +1,7 @@
 require 'rake/clean'
 
-all     = FileList['sls/**/*.cpp', 'sls/**/*.hpp']
-sources = FileList['sls/**/*.cpp']
+all     = FileList['sls/**/*.cpp', 'sls/**/*.hpp', 'main.cpp']
+sources = FileList['sls/**/*.cpp', 'main.cpp']
 objects = sources.ext('.o').gsub /^/, "../obj/"
 paths   = sources.pathmap "%d"
 

@@ -12,13 +12,14 @@ namespace sls { namespace facets {
 
 
 begin_facet(breakcount)
-public:
     typedef decltype(variable_properties_type::score) score_type;
 
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {
         std::for_each(get_inner_state.variable_properties_begin(), get_inner_state.variable_properties_end(), 
-        	[](variable_properties_type& prop){ prop.score = score_type(0); });
+        	[](variable_properties_type& prop){ 
+                prop.score = score_type(0); 
+            });
     }
 
     inline score_type breakcount(variable_type variable) const
@@ -38,7 +39,7 @@ public:
     {
         get_inner_state[variable].score += diff;
     }
-};
+end_facet
 
 
 } /* facets */ } /* sls */

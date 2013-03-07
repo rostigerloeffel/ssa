@@ -9,11 +9,11 @@
 namespace sls { namespace state {
 
 
-template<typename State>
+template<typename State, typename InnerState>
 class state_interface
 {
 public:
-    INNER_STATE_TYPEDEFS(typename State::inner_state_type)
+    INNER_STATE_TYPEDEFS(InnerState)
 
 private:
     std::vector<clause_store_type>      literal_index_to_clauses_;
@@ -25,9 +25,7 @@ public:
         :   literal_index_to_clauses_(), 
             variable_index_to_clauses_(), 
             variable_index_to_variables_()
-    {
-        prepare();
-    }
+    {}
 
     void prepare()
     {

@@ -4,43 +4,45 @@
 namespace sls { namespace frontend {
 
 
-namespace {
+//namespace wsat {
 
 typedef sls::sat::standard::sat sat;
 
-struct variable : 
+struct walksat_variable : 
             public sls::properties::truth, 
             public sls::properties::score {};
-struct literal {};
-struct clause : 
+struct walksat_literal {};
+struct walksat_clause : 
             public sls::properties::watcher2<typename sat::variable_type>, 
             public sls::properties::num_true_literals {};
-struct properties
+struct walksat_properties
 {
-    typedef variable variable_properties_type;
-    typedef literal literal_properties_type;
-    typedef clause clause_properties_type;
+    typedef walksat_variable variable_properties_type;
+    typedef walksat_literal literal_properties_type;
+    typedef walksat_clause clause_properties_type;
 };
 
-}
+//}
 
-template<typename State>
+template<typename State, typename InnerState>
 using walksat_facets = sls::facets::facet_compositor<
-    State,
-    sls::facets::truth_facet<State>,
-    sls::facets::breakcount_facet<State>,
-    sls::facets::watcher_facet<State>,
-    sls::facets::unsat_facet<State>,
-    sls::facets::null_weight_facet<State>
+    State, InnerState,
+    sls::facets::truth_facet<State, InnerState>,
+    sls::facets::breakcount_facet<State, InnerState>,
+    sls::facets::watcher_facet<State, InnerState>,
+    sls::facets::unsat_facet<State, InnerState>,
+    sls::facets::null_weight_facet<State, InnerState>
 >;
 
-DECL_STATE(walksat, sat, properties, sls::frontend::walksat_facets)
+
+DECL_STATE(walksat, sat, walksat_properties, sls::frontend::walksat_facets)
+
 
 //} /* unnamed */
 
 
-sls::solvers::solver_base* const create_walksat_sat_solver(
-                                            problem const& problem,
+::sls::solvers::solver_base* const create_walksat_sat_solver(
+                                            sls::frontend::problem const& problem,
                                             sls::util::commandline const& cmd)
 {
     std::cerr << "c create walksat sat solver" << std::endl;

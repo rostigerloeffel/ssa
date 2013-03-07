@@ -10,7 +10,6 @@ namespace sls { namespace facets {
 
 
 begin_facet(null_weight)
-public:
     typedef int weight_type;
 
     inline weight_type weight(clause_type clause) const

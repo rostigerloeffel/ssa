@@ -20,7 +20,9 @@ begin_facet(truth)
     inline void randomize()
     {
         std::for_each(get_inner_state.variable_properties_begin(), get_inner_state.variable_properties_end(), 
-        	[](variable_properties_type& prop){ prop.truth = static_cast<bool>(std::rand() % 2); });
+        	[](variable_properties_type& prop){ 
+                prop.truth = static_cast<bool>(std::rand() % 2); 
+            });
     }
 
     inline void flip(variable_type variable)

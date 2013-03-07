@@ -1,5 +1,5 @@
-#ifndef __SSA_FRONTEND_DIMACS_PARSER_HPP__
-#define __SSA_FRONTEND_DIMACS_PARSER_HPP__
+#ifndef _SLS_FRONTEND_DIMACS_PARSER_HPP_
+#define _SLS_FRONTEND_DIMACS_PARSER_HPP_
 
 
 #include <vector>
@@ -10,7 +10,7 @@
 #include "problem_types.hpp"
 
 
-namespace ssa { namespace frontend {
+namespace sls { namespace frontend {
 
 namespace {
 
@@ -32,7 +32,7 @@ inline std::vector<std::string> tokenize(std::string const& line)
     return tokens;
 }
 
-}
+} /* unnamed */
 
 struct dimacs_clause : public weighted_clause
 {
@@ -254,7 +254,7 @@ ProblemType dimacs_to(dimacs_problem const& dimacs)
 }
 */
 
-} /* frontend */ } /* ssa */
+} /* frontend */ } /* sls */
 
 
 #endif

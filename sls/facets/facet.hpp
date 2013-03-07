@@ -9,19 +9,19 @@
 	template \
 	< \
 		typename State, \
+		typename InnerState, \
 	    ##__VA_ARGS__ \
 	> \
-	struct name##_facet : public facet_base<State> \
+	struct name##_facet : public facet_base<State, InnerState> \
 	{ \
-		STATE_TYPEDEFS(State)
+		INNER_STATE_TYPEDEFS(InnerState)
 
 
 #define facet_constr(name, ...) \
 	public: \
 		name##_facet() \
 			:	__VA_ARGS__ \
-	    { \
-	    }
+	    {}
 
 #define end_facet \
 	};

@@ -6,14 +6,4 @@
 #include "inner_state.hpp"
 
 
-namespace sls { namespace state {
-
-
-template<typename State>
-struct state_trait;
-
-
-} /* state */ } /* sls */
-
-
 #endif

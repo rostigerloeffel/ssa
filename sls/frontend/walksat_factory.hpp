@@ -34,7 +34,7 @@
 namespace sls { namespace frontend {
 
 
-sls::solvers::solver_base* const create_sparrow_sat_solver(
+sls::solvers::solver_base* const create_walksat_sat_solver(
                                             problem const& problem, 
                                             sls::util::commandline const& cmd);
 

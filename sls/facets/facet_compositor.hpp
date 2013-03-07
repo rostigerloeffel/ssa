@@ -4,6 +4,7 @@
 
 #include <vector>
 #include "facet_base.hpp"
+#include "../state/state_lang.hpp"
 
 
 namespace sls { namespace facets {
@@ -15,22 +16,10 @@ template
     typename InnerState,
     typename ...Facets
 >
-class facet_compositor : public Facets...
+struct facet_compositor : public Facets...
 {
-public:
-    typedef InnerState                                          inner_state_type;
-    typedef typename inner_state_type::sat_type                 sat_type;
-    typedef typename inner_state_type::properties_type          properties_type;
+    INNER_STATE_TYPEDEFS(InnerState)
 
-    typedef typename sat_type::clause_type                      clause_type;
-    typedef typename sat_type::literal_type                     literal_type;
-    typedef typename sat_type::variable_type                    variable_type;
-
-    typedef typename properties_type::variable_properties_type  variable_properties_type;
-    typedef typename properties_type::literal_properties_type   literal_properties_type;
-    typedef typename properties_type::clause_properties_type    clause_properties_type;
-
-public:
     // call the reset-method of each facet in a well-defined manner
     template<typename Facet>
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
@@ -42,7 +31,6 @@ public:
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {
         Facet1::reset(clauses, variable_count);
-
         reset<Facet2, RestFacets...>(clauses, variable_count);
     }
 
@@ -62,7 +50,6 @@ public:
     void before_pick(size_t flip)
     {
         StateFacet1::before_pick(flip);
-
         before_pick<StateFacet2, RestFacets...>(flip);
     }
 
@@ -82,7 +69,6 @@ public:
     void after_pick(size_t flip, variable_type variable)
     {
         Facet1::after_pick(flip, variable);
-
         after_pick<Facet2, RestFacets...>(flip, variable);
     }
 
@@ -102,7 +88,6 @@ public:
     void flush()
     {
         Facet1::flush();
-
         flush<Facet2, RestFacets...>();
     }
 

@@ -25,7 +25,7 @@
 #define UNROLL_PROP(...) UNROLL_PROP_N(NARGS(__VA_ARGS__), __VA_ARGS__)
 
 
-#define UNROLL_FACETS_1(f1) sls::facets::f1<State, InnerState>
+#define UNROLL_FACETS_1(f1) sls::facets::f1##_facet<State, InnerState>
 #define UNROLL_FACETS_2(f1, f2) UNROLL_FACETS_1(f1), UNROLL_FACETS_1(f2)
 #define UNROLL_FACETS_3(f1, f2, f3) UNROLL_FACETS_1(f1), UNROLL_FACETS_2(f2, f3)
 #define UNROLL_FACETS_4(f1, f2, f3, f4) UNROLL_FACETS_1(f1), UNROLL_FACETS_3(f2, f3, f4)
@@ -40,43 +40,45 @@
 #define UNROLL_FACETS_N(n, ...) UNROLL_FACETS_N_2(n, __VA_ARGS__)
 #define UNROLL_FACETS(...) UNROLL_FACETS_N(NARGS(__VA_ARGS__), __VA_ARGS__)
 
+#define declare_sat_backend(sat_decl) \
+	typedef ::sls::sat::sat_decl sat_type;
 
-#define declare_properties(name, variables, literals, clauses) \
-	namespace name { \
+#define declare_properties(variables, literals, clauses) \
 	struct properties \
 	{ \
     	variables literals clauses \
-	}; \
-	}
+	};
 
-#define variables(...) \
+#define variable_props(...) \
     struct variable_properties_type : UNROLL_PROP(__VA_ARGS__) {};
-#define literals(...) \
+#define literal_props(...) \
     struct literal_properties_type : UNROLL_PROP(__VA_ARGS__) {};
-#define clauses(...) \
+#define clause_props(...) \
     struct clause_properties_type : UNROLL_PROP(__VA_ARGS__) {};
 
-#define declare_facets(name, ...) \
+#define declare_facets(...) \
 	template<typename State, typename InnerState> \
 	using facets = sls::facets::facet_compositor< \
 	    State, InnerState, \
 	    UNROLL_FACETS(__VA_ARGS__) \
 	>;
 
-#define declare_state(name, sat, props, facets) \
-	typedef sls::state::inner_state<sat, props> name##_inner_state; \
-	struct name##_state : public sls::state::state_interface<name##_state, name##_inner_state>, \
-						  public facets<name##_state, name##_inner_state> \
+#define declare_state(name, sat_decl, prop_decl, facets_decl) \
+	namespace name { \
+	sat_decl prop_decl facets_decl \
+	typedef ::sls::state::inner_state<sat_type, properties> inner_state_t; \
+	struct state : public ::sls::state::state_interface<state, inner_state_t>, \
+				   public facets<state, inner_state_t> \
 	{ \
-		INNER_STATE_TYPEDEFS(name##_inner_state) \
+		INNER_STATE_TYPEDEFS(inner_state_t) \
 \
-		name##_inner_state inner_state_; \
+		inner_state_type inner_state_; \
 \
-		name##_state(std::vector<clause_type> const& clauses, size_t variable_count) \
+		state(std::vector<clause_type> const& clauses, size_t variable_count) \
 			:	inner_state_(clauses, variable_count) \
 		{ \
-			sls::state::state_interface<name##_state, name##_inner_state>::prepare(); \
-			facets<name##_state, name##_inner_state>::reset(clauses, variable_count); \
+			::sls::state::state_interface<state, inner_state_t>::prepare(); \
+			facets<state, inner_state_t>::reset(clauses, variable_count); \
 		} \
 		inline inner_state_type& inner_state() \
 		{ \
@@ -86,7 +88,8 @@
 		{ \
 			return inner_state_; \
 		} \
-	};
+	}; \
+	}
 
 
 #endif

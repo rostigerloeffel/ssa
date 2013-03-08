@@ -40,31 +40,6 @@ template<class T> struct is_base_type_const<T* const>       : std::false_type {}
 	typedef state state_type; \
 	INNER_STATE_TYPEDEFS(typename state_type::inner_state_type)
 
-#define DECL_STATE(name, sat, props, facets) \
-	typedef sls::state::inner_state<sat, props> name##_inner_state; \
-	struct name##_state : public sls::state::state_interface<name##_state, name##_inner_state>, \
-						  public facets<name##_state, name##_inner_state> \
-	{ \
-		INNER_STATE_TYPEDEFS(name##_inner_state) \
-\
-		name##_inner_state inner_state_; \
-\
-		name##_state(std::vector<clause_type> const& clauses, size_t variable_count) \
-			:	inner_state_(clauses, variable_count) \
-		{ \
-			sls::state::state_interface<name##_state, name##_inner_state>::prepare(); \
-			facets<name##_state, name##_inner_state>::reset(clauses, variable_count); \
-		} \
-		inline inner_state_type& inner_state() \
-		{ \
-			return inner_state_; \
-		} \
-		inline inner_state_type const& inner_state() const \
-		{ \
-			return inner_state_; \
-		} \
-	};
-
 #define get_inner_state \
 	(static_cast< \
 		typename std::conditional< \

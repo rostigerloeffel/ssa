@@ -1,6 +1,6 @@
 #ifndef _SLS_PROPERTIES_PROPERTIES_LANG_
 #define _SLS_PROPERTIES_PROPERTIES_LANG_
-
+/*
 #define DECL_PROPERTIES(name, variables, literals, clauses) \
 	namespace name { \
 	struct properties \
@@ -33,5 +33,5 @@
     struct literal_properties_type : UNROLL_PROP(__VA_ARGS__) {};
 #define CLAUSE(...) \
     struct clause_properties_type : UNROLL_PROP(__VA_ARGS__) {};
-
+*/
 #endif

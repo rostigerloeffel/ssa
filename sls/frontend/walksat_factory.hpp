@@ -8,6 +8,7 @@
 
 #include "problem_types.hpp"
 #include "frontend_lang.hpp"
+#include "usability.hpp"
 
 #include "../state/state.hpp"
 #include "../state/inner_state.hpp"

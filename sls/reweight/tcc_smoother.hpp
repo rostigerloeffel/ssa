@@ -1,17 +1,17 @@
-#ifndef __SSA_REWEIGHT_TCC_SMOOTHER_HPP__
-#define __SSA_REWEIGHT_TCC_SMOOTHER_HPP__
+#ifndef _SLS_REWEIGHT_TCC_SMOOTHER_HPP_
+#define _SLS_REWEIGHT_TCC_SMOOTHER_HPP_
 
 
 #include "reweighter_base.hpp"
 
 
-namespace ssa { namespace reweight {
+namespace sls { namespace reweight {
 
 
-template<typename StateType>
-class tcc_smoother : public reweighter_base<StateType>
+template<typename State>
+class tcc_smoother : public reweighter_base<State>
 {
-    typedef StateType state_type;
+    typedef State state_type;
 
 public:
     void operator()(state_type& state)
@@ -21,7 +21,7 @@ public:
 };
 
 
-} /* reweight */ } /* ssa */
+} /* reweight */ } /* sls */
 
 
 #endif

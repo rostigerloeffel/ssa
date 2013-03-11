@@ -1,10 +1,11 @@
-#ifndef __SSA_FACETS_GREEDY_SCORE_FACET_HPP__
-#define __SSA_FACETS_GREEDY_SCORE_FACET_HPP__
+#ifndef _SLS_FACETS_GREEDY_SCORE_FACET_HPP_
+#define _SLS_FACETS_GREEDY_SCORE_FACET_HPP_
 
 
 #include "facet_base.hpp"
 #include "signals.hpp"
 #include "facet.hpp"
+#include "../storage/mutable_priority_queue.hpp"
 #include "comparators.hpp"
 
 
@@ -26,7 +27,7 @@ private:
     variable_type       walk_;
 
 public:
-    facet_constr(greedy_score, greedy_(0, {get_inner_state}), walk_(variable_type::null())
+    facet_constr(greedy_score, greedy_(0, {get_inner_state}), walk_(variable_type::null()))
 
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {

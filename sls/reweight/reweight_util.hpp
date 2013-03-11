@@ -1,12 +1,12 @@
-#ifndef __SSA_REWEIGHT_REWEIGHT_UTIL_HPP__
-#define __SSA_REWEIGHT_REWEIGHT_UTIL_HPP__
+#ifndef _SLS_REWEIGHT_REWEIGHT_UTIL_HPP_
+#define _SLS_REWEIGHT_REWEIGHT_UTIL_HPP_
 
 
-namespace ssa { namespace reweight {
+namespace sls { namespace reweight {
 
 
-template<typename StateType>
-void inc_clause_weight(StateType& state, typename StateType::clause_type clause, int inc)
+template<typename State>
+void inc_clause_weight(State& state, typename State::clause_type clause, int inc)
 {
     if(state.num_true_literals(clause) == 0)
         for(auto literal : clause)
@@ -17,8 +17,8 @@ void inc_clause_weight(StateType& state, typename StateType::clause_type clause,
     state.inc_weight(clause, inc);
 }
 
-template<typename StateType>
-void dec_clause_weight(StateType& state, typename StateType::clause_type clause, int dec)
+template<typename State>
+void dec_clause_weight(State& state, typename State::clause_type clause, int dec)
 {
     // If the clause is broken we have to decrease the score of all contained variables
     if(state.num_true_literals(clause) == 0)
@@ -34,7 +34,7 @@ void dec_clause_weight(StateType& state, typename StateType::clause_type clause,
 }
 
 
-} /* reweight */ } /* ssa */
+} /* reweight */ } /* sls */
 
 
 #endif

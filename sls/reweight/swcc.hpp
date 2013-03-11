@@ -1,12 +1,12 @@
-#ifndef __SSA_REWEIGHT_SWCC_HPP__
-#define __SSA_REWEIGHT_SWCC_HPP__
+#ifndef _SLS_REWEIGHT_SWCC_HPP_
+#define _SLS_REWEIGHT_SWCC_HPP_
 
 
 #include "reweighter_base.hpp"
 #include "reweight_util.hpp"
 
 
-namespace ssa { namespace reweight {
+namespace sls { namespace reweight {
 
 
 template<typename StateType>
@@ -175,7 +175,7 @@ private:
 };
 
 
-} /* reweight */ } /* ssa */
+} /* reweight */ } /* sls */
 
 
 #endif

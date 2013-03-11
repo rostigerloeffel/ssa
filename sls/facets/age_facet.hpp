@@ -20,7 +20,7 @@ public:
 
     inline void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {
-        std::for_each(inner_state_.variable_properties_begin(), inner_state_.variable_properties_end(), 
+        std::for_each(get_inner_state.variable_properties_begin(), get_inner_state.variable_properties_end(), 
             [](variable_properties_type& prop){ 
                 prop.last_flip = 0; 
         });

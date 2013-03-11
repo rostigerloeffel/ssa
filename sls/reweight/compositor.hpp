@@ -1,18 +1,18 @@
-#ifndef __SSA_REWEIGHT_COMPOSITOR_HPP__
-#define __SSA_REWEIGHT_COMPOSITOR_HPP__
+#ifndef _SLS_REWEIGHT_COMPOSITOR_HPP_
+#define _SLS_REWEIGHT_COMPOSITOR_HPP_
 
 
 #include <vector>
 #include "reweighter_base.hpp"
 
 
-namespace ssa { namespace selectors {
+namespace sls { namespace selectors {
 
 
-template<typename StateType>
-class compositor : public reweighter_base<StateType>
+template<typename State>
+class compositor : public reweighter_base<State>
 {
-    typedef StateType state_type;
+    typedef State state_type;
     typedef typename state_type::variable_type variable_type;
 
     std::vector<reweighter_base<state_type>*> reweighters_;
@@ -34,7 +34,7 @@ public:
 };
 
 
-} /* reweighters */ } /* ssa */
+} /* reweighters */ } /* sls */
 
 
 #endif

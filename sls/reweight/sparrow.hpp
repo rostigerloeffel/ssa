@@ -1,18 +1,18 @@
-#ifndef __SSA_REWEIGHT_SPARROW_HPP__
-#define __SSA_REWEIGHT_SPARROW_HPP__
+#ifndef _SLS_REWEIGHT_SPARROW_HPP_
+#define _SLS_REWEIGHT_SPARROW_HPP_
 
 
 #include "reweighter_base.hpp"
 #include "reweight_util.hpp"
 
 
-namespace ssa { namespace reweight {
+namespace sls { namespace reweight {
 
 
-template<typename StateType>
-class sparrow : public reweighter_base<StateType>
+template<typename State>
+class sparrow : public reweighter_base<State>
 {
-    typedef StateType state_type;
+    typedef State state_type;
 
     double smooth_probability_;
 
@@ -44,7 +44,7 @@ private:
 };
 
 
-} /* reweight */ } /* ssa */
+} /* reweight */ } /* sls */
 
 
 #endif

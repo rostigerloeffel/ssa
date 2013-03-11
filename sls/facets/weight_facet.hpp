@@ -13,7 +13,7 @@ namespace sls { namespace facets {
 
 
 begin_facet(weight,
-    typename WeightedStoreType = sls::storage::random_access_list<typename InnerState::clause_type)
+    typename WeightedStoreType = sls::storage::random_access_list<typename InnerState::clause_type>)
 
     typedef decltype(clause_properties_type::weight)    weight_type;
     typedef WeightedStoreType                           weighted_store_type;
@@ -27,7 +27,7 @@ public:
 
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {
-        std::for_each(inner_state_.clause_properties_begin(), inner_state_.clause_properties_end(), 
+        std::for_each(get_inner_state.clause_properties_begin(), get_inner_state.clause_properties_end(), 
         	[](clause_properties_type& prop){ 
                 prop.weight = weight_type(1); 
             });

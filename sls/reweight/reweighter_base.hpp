@@ -1,21 +1,21 @@
-#ifndef __SSA_REWEIGHT_REWEIGHTER_BASE_HPP__
-#define __SSA_REWEIGHT_REWEIGHTER_BASE_HPP__
+#ifndef _SLS_REWEIGHT_REWEIGHTER_BASE_HPP_
+#define _SLS_REWEIGHT_REWEIGHTER_BASE_HPP_
 
 
-namespace ssa { namespace reweight {
+namespace sls { namespace reweight {
 
 
-template<typename StateType>
+template<typename State>
 class reweighter_base
 {
-    typedef StateType state_type;
+    typedef State state_type;
 
 public:
     virtual void operator()(state_type& state) = 0;
 };
 
 
-} /* reweight */ } /* ssa */
+} /* reweight */ } /* sls */
 
 
 #endif

@@ -22,8 +22,8 @@ class counting_occ_transitor : public transitor_base<StateType>
 public:
 	STATE_TYPEDEFS(StateType)
 
-	typedef HandlePlus 							handle_plus_policy;
-	typedef HandleMinus 						handle_minus_policy;
+	typedef HandlePlus 	handle_plus_policy;
+	typedef HandleMinus handle_minus_policy;
 
 private:
 	size_t flips_;

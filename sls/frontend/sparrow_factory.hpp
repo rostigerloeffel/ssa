@@ -1,5 +1,5 @@
-#ifndef __SSA_UTIL_SPARROW_FACTORY_HPP__
-#define __SSA_UTIL_SPARROW_FACTORY_HPP__
+#ifndef _SLS_UTIL_SPARROW_FACTORY_HPP_
+#define _SLS_UTIL_SPARROW_FACTORY_HPP_
 
 
 #include "../util/commandline.hpp"
@@ -41,23 +41,23 @@
 #include "../transitions/transition_typedefs.hpp"
 
 
-namespace ssa { namespace frontend {
+namespace sls { namespace frontend {
 
 
-ssa::solvers::solver_base* const create_sparrow_sat_solver(
+sls::solvers::solver_base* const create_sparrow_sat_solver(
                                             problem const& problem, 
                                             sls::util::commandline const& cmd);
 
-ssa::solvers::solver_base* const create_sparrow_maxsat_solver(
+sls::solvers::solver_base* const create_sparrow_maxsat_solver(
                                             problem const& problem, 
                                             sls::util::commandline const& cmd);
 
-ssa::solvers::solver_base* const create_sparrow_weighted_maxsat_solver(
+sls::solvers::solver_base* const create_sparrow_weighted_maxsat_solver(
                                             problem const& problem, 
                                             sls::util::commandline const& cmd);
 
 
-} /* frontend */ } /* ssa */
+} /* frontend */ } /* sls */
 
 
 #endif

@@ -16,7 +16,6 @@
 	{ \
 		INNER_STATE_TYPEDEFS(InnerState)
 
-
 #define facet_constr(name, ...) \
 	public: \
 		name##_facet() \

@@ -1,5 +1,5 @@
-#ifndef _SLS_UTIL_SPARROW_FACTORY_HPP_
-#define _SLS_UTIL_SPARROW_FACTORY_HPP_
+#ifndef _SLS_UTIL_WALKSAT_FACTORY_HPP_
+#define _SLS_UTIL_WALKSAT_FACTORY_HPP_
 
 
 #include <iostream>
@@ -7,7 +7,6 @@
 #include "../util/commandline.hpp"
 
 #include "problem_types.hpp"
-#include "frontend_lang.hpp"
 #include "usability.hpp"
 
 #include "../state/state.hpp"

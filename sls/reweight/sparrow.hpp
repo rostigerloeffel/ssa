@@ -32,7 +32,7 @@ public:
 private:
     inline void increase_clause_weights(state_type& state)
     {
-        for(auto clause : state.broken())
+        for(auto clause : state.unsats())
         	inc_clause_weight(state, clause, 1);
     }
 

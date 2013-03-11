@@ -45,14 +45,14 @@ public:
     variable_type select(state_type& state)
     {
         // pick clause
-        auto broken_clause = state.broken()[std::rand() % state.broken().size()];
+        auto unsat_clause = state.unsats()[std::rand() % state.unsats().size()];
 
-        p_s.resize(broken_clause.size());
-        p_a.resize(broken_clause.size());
+        p_s.resize(unsat_clause.size());
+        p_a.resize(unsat_clause.size());
 
         auto sparrow_sum = 0.0;
         auto i = 0;
-        for(auto literal : broken_clause)
+        for(auto literal : unsat_clause)
         {
             if(state.score(literal.variable()) <= 0)
                 p_s[i] = std::pow(c1_, static_cast<double>(state.score(literal.variable())));
@@ -69,7 +69,7 @@ public:
         auto score_sum = 0.0;
 
         i = 0;
-        for(auto literal : broken_clause)
+        for(auto literal : unsat_clause)
         {
             score_sum += p_s[i] * p_a[i];
 
@@ -79,7 +79,7 @@ public:
             ++i;
         }
 
-        auto v = state.clauses()[std::rand() % state.clauses().size()][std::rand() % broken_clause.size()].variable();
+        auto v = state.clauses()[std::rand() % state.clauses().size()][std::rand() % unsat_clause.size()].variable();
         return v;
     }
 

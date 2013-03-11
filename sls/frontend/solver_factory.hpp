@@ -8,7 +8,9 @@
 #include "dimacs_parser.hpp"
 #include "problem_types.hpp"
 #include "walksat_factory.hpp"
-/*#include "sparrow_factory.hpp"
+#include "sparrow_factory.hpp"
+
+/*
 #include "swcc_factory.hpp"
 #include "sattime_factory.hpp"
 #include "ssa2013_factory.hpp"*/
@@ -21,7 +23,7 @@ inline sls::solvers::solver_base* const create_sat_solver(
                                                 problem const& problem, 
                                                 sls::util::commandline const& cmd)
 {
-    return create_walksat_sat_solver(problem, cmd);
+    return create_sparrow_sat_solver(problem, cmd);
 }
 
 inline sls::solvers::solver_base* const create_maxsat_solver(

@@ -4,55 +4,30 @@
 namespace sls { namespace frontend {
 
 
-// declare_state(walksat,
-//     declare_sat_backend(standard::sat),
+template<typename State, typename InnerState>
+using sparrow_facets = sls::facets::facet_compositor<
+    State, InnerState,
+    sls::facets::age_facet<State, InnerState>,
+    sls::facets::truth_facet<State, InnerState>,
+    sls::facets::greedy_score_age_facet<State, InnerState>,
+    sls::facets::score_sender_facet<State, InnerState, 
+        sls::facets::greedy_score_age_facet<State, InnerState>
+    >,
+    sls::facets::watcher_facet<State, InnerState>,
+    sls::facets::weight_facet<State, InnerState>,
+    sls::facets::unsat_facet<State, InnerState>
+>;
 
-//     declare_properties(
-//             variable_props(truth, age, score),
-//             literal_props(empty),
-//             clause_props(watcher2<typename sat_type::variable_type>, num_true_literals, weight)),
 
-//     declare_facets(truth, breakcount, watcher, unsat, null_weight))
+declare_state(sparrow,
+    declare_sat_backend(standard::sat),
 
+    declare_properties(
+            variable_props(truth, age, score),
+            literal_props(empty),
+            clause_props(watcher2<typename sat_type::variable_type>, num_true_literals, weight)),
 
-typedef sls::sat::standard::sat sat;
-
-struct variable : 
-            public sls::properties::truth, 
-            public sls::properties::age, 
-            public sls::properties::score {};
-struct literal {};
-struct clause : 
-            public sls::properties::watcher2<typename sat::variable_type>, 
-            public sls::properties::num_true_literals, 
-            public sls::properties::weight {};
-
-struct properties
-{
-    typedef variable variable_properties_type;
-    typedef literal literal_properties_type;
-    typedef clause clause_properties_type;
-};
-
-typedef sls::state::inner_state<sat, properties> inner_state;
-
-typedef sls::state::state<
-    sat,
-    properties,
-    sls::facets::facet_compositor<
-        inner_state,
-        sls::facets::age_facet<inner_state>,
-        sls::facets::truth_facet<inner_state>,
-        sls::facets::greedy_score_age_facet<inner_state>,
-        sls::facets::score_sender_facet<inner_state, 
-            sls::facets::greedy_score_age_facet<inner_state>
-        >,
-        sls::facets::watcher_facet<inner_state>,
-        sls::facets::weight_facet<inner_state>,
-        sls::facets::unsat_facet<inner_state>
-    >
-> sat_state_type;
-
+    use_facets(sparrow_facets))
 
 // typedef sat_state_type maxsat_state_type;
 
@@ -167,14 +142,11 @@ sls::solvers::solver_base* const create_sparrow_sat_solver(
                                             sls::util::commandline const& cmd)
 {
     std::cerr << "c create sparrow sat solver" << std::endl;
+    auto conf = get_conf<sparrow::state>(problem, cmd);
 
-    typedef sat_state_type state_type;
-
-    auto conf = get_conf<state_type>(problem, cmd);
-
-    return new sls::solvers::gensat<state_type>(
+    return new sls::solvers::gensat<sparrow::state>(
                     problem,
-                    *(new sls::transitions::default_initializer<state_type>()),
+                    *(new sls::transitions::default_initializer<sparrow::state>()),
                     *(conf.transitor),
                     get_selector(cmd, conf));
 }

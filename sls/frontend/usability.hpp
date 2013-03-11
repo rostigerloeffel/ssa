@@ -63,6 +63,14 @@
 	    UNROLL_FACETS(__VA_ARGS__) \
 	>;
 
+#define use_facets(facet_type) \
+	template<typename State, typename InnerState> \
+	using facets = facet_type<State, InnerState>;
+
+#define connect_facets(sender, ...) \
+	template<State, InnerState> \
+	using sender_##__COUNTER__ = sender<State, InnerState, __VA_ARGS__>;
+
 #define declare_state(name, sat_decl, prop_decl, facets_decl) \
 	namespace name { \
 	sat_decl prop_decl facets_decl \

@@ -5,6 +5,7 @@
 #include "../util/commandline.hpp"
 
 #include "problem_types.hpp"
+#include "usability.hpp"
 
 #include "../state/state.hpp"
 #include "../state/inner_state.hpp"

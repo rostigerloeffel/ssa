@@ -33,11 +33,7 @@ begin_facet(watcher)
 
     inline variable_type watcher2(clause_type clause) const
     {
-        return static_cast<
-                    typename std::conditional<
-                        std::is_const<typename std::remove_pointer<decltype(this)>::type>::value,
-                        State const* const,
-                        State* const>::type>(this)->inner_state()[clause].watcher2;
+        return get_inner_state[clause].watcher2;
     }
 
     inline void watcher2(clause_type clause, variable_type variable)

@@ -1,34 +1,37 @@
-//#include "swcc_factory.hpp"
+#include "swcc_factory.hpp"
 
 
 namespace ssa { namespace frontend {
 
 
-// namespace {
+template<typename State, typename InnerState>
+using swqcca_facets = sls::facets::facet_compositor<
+    State, InnerState,
+    sls::facets::neighbour_facet<State, InnerState>,
+    sls::facets::greedy_score_tcc_age_facet<State, InnerState>,
+    sls::facets::score_sender_facet<State, InnerState,
+    	sls::facets::greedy_score_tcc_age_facet<State, InnerState>>,
+    sls::facets::tcc_sender_facet<State, InnerState,
+    	sls::facets::greedy_score_tcc_age_facet<State, InnerState>>,
+    sls::facets::age_facet<State, InnerState>,
+    sls::facets::truth_facet<State, InnerState>,
+    sls::facets::watcher_facet<State, InnerState>,
+    sls::facets::weight_facet<State, InnerState>,
+    sls::facets::unsat_facet<State, InnerState>
+>;
 
-// typedef sls::sat::standard::sat sat;
+declare_state(swqcca,
+    declare_sat_backend(standard::sat),
 
-// struct variable : 
-//             public sls::properties::neighbours<typename sat::variable_type>,
-//             public sls::properties::tcc,
-//             public sls::properties::blocked,
-//             public sls::properties::truth, 
-//             public sls::properties::age, 
-//             public sls::properties::score {};
-// struct literal {};
-// struct clause : 
-//             public sls::properties::watcher2<typename sat::variable_type>, 
-//             public sls::properties::num_true_literals, 
-//             public sls::properties::weight {};
+    declare_properties(
+            variable_props(truth, age, score, tcc, blocked, neighbours<typename sat::variable_type>),
+            literal_props(empty),
+            clause_props(watcher2<typename sat_type::variable_type>, num_true_literals, weight)),
 
-// struct properties
-// {
-//     typedef variable variable_properties_type;
-//     typedef literal literal_properties_type;
-//     typedef clause clause_properties_type;
-// };
+    use_facets(swqcca_facets))
 
-// typedef sls::state::inner_state<sat, properties> inner_state;
+
+
 
 // typedef sls::state::state<
 //     sat,
@@ -154,30 +157,25 @@ namespace ssa { namespace frontend {
 //                     });
 // }
 
-// ssa::solvers::solver_base* const create_swqcca_sat_solver(
-//                                             problem const& problem, 
-//                                             sls::util::commandline const& cmd)
-// {
-//     std::cerr << "c create swqcca sat solver" << std::endl;
-//     typedef swqcca_state_type state_type;
+ssa::solvers::solver_base* const create_swqcca_sat_solver(
+                                            problem const& problem, 
+                                            sls::util::commandline const& cmd)
+{
+    std::cerr << "c create swqcca sat solver" << std::endl;
 
-//     return new ssa::solvers::gensat<state_type>(
-//                     problem,
-//                     *(new ssa::transitions::default_initializer<state_type>()),
-//                     *(new ssa::transitions::default_transitor<state_type>()),
+    return new ssa::solvers::gensat<swqcca::state>(
+                    problem,
+                    *(new ssa::transitions::default_initializer<swqcca::state>()),
+                    *(new ssa::transitions::default_transitor<swqcca::state>()),
 
-//                     //new sls::selectors::reporting_selector<state_type>(
-//                         new sls::selectors::compositor<state_type>
-//                         {
-//                             new sls::selectors::ccd<state_type>(),
-//                             new sls::selectors::sd<state_type>(),
-//                             new sls::selectors::reweighting_selector<state_type>(
-//                                 new sls::selectors::oldest<state_type>(),
-//                                 new ssa::reweight::swqcca<state_type>())
-//                         }
-//                     //)
-//                     );
-// }
+                    new sls::selectors::compositor<swqcca::state>
+                    {
+                        new sls::selectors::greedy<swqcca::state>(),
+                        new sls::selectors::reweighting_selector<swqcca::state>(
+                            new sls::selectors::oldest<swqcca::state>(),
+                            new ssa::reweight::swqcca<swqcca::state>())
+                    });
+}
 
 
 } /* frontend */ } /* ssa */

@@ -1,16 +1,18 @@
-#ifndef __SSA_SCORE_SENDER_FACET_HPP__
-#define __SSA_SCORE_SENDER_FACET_HPP__
+#ifndef _SLS_SCORE_SENDER_FACET_HPP_
+#define _SLS_SCORE_SENDER_FACET_HPP_
 
 
+#include "facet.hpp"
 #include "facet_base.hpp"
 #include "signals.hpp"
-#include "facet.hpp"
 
 
 namespace sls { namespace facets {
 
 
-begin_facet(score_sender, typename ...ScoreListener)
+begin_facet(score_sender, 
+    typename ...ScoreListener)
+    
     typedef decltype(variable_properties_type::score) score_type;
 
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)

@@ -57,8 +57,8 @@ public:
 
     facet_slot(score_inc, variable, diff)
     {
-        if(get_inner_state[variable].score > score_type(0) && 
-           get_inner_state[variable].score <= diff)   
+        if(this_state.score(variable) > score_type(0) && 
+           this_state.score(variable) <= diff)   
         {
             if(walk_ != variable)
                 greedy_.push(variable);
@@ -71,12 +71,12 @@ public:
     {
         if(greedy_.contains(variable))
         {
-            if(get_inner_state[variable].score <= score_type(0))
+            if(this_state.score(variable) <= score_type(0))
                 greedy_.remove(variable);
             else
                 greedy_.update_after_dec(variable);
         }
-    }
+    } 
 end_facet
 
 

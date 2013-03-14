@@ -7,6 +7,7 @@
 
 namespace sls { namespace properties {
 
+
 struct empty
 {};
 

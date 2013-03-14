@@ -40,7 +40,7 @@ begin_facet(neighbour)
 }; 
 
 
-} /* facets */ } /* ssa */
+} /* facets */ } /* sls */
 
 
 #endif

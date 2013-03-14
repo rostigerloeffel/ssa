@@ -32,7 +32,7 @@ public:
         reset_tcc(variable);
 
         for(auto neighbour : this_state.neighbours(variable))
-            inc_tcc(neighbour);
+            inc_tcc(neighbour, tcc_type(1));
     }
 
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
@@ -56,19 +56,19 @@ public:
     inline void inc_tcc(variable_type variable, tcc_type diff)
     {
         tcc(variable) += diff;
-        send_signal(inc_tcc, variable, diff);
+        send_signal(tcc_inc, variable, diff);
     }
 
     inline void dec_tcc(variable_type variable, tcc_type diff)
     {
         tcc(variable) -= diff;
-        send_signal(dec_tcc, variable, diff);
+        send_signal(tcc_dec, variable, diff);
     }
 
     inline void reset_tcc(variable_type variable)
     {
         tcc(variable) = tcc_type(0);
-        send_signal(reset_tcc, variable);
+        send_signal(tcc_reset, variable);
     }
 
     inline void smooth_tcc()
@@ -90,9 +90,9 @@ public:
     }    
 
 private:
-    facet_signal(inc_tcc, TccListener, variable_type, tcc_type)
-    facet_signal(dec_tcc, TccListener, variable_type, tcc_type)
-    facet_signal(reset_tcc, TccListener, variable_type)
+    facet_signal(tcc_inc, TccListener, variable_type, tcc_type)
+    facet_signal(tcc_dec, TccListener, variable_type, tcc_type)
+    facet_signal(tcc_reset, TccListener, variable_type)
 end_facet
 
 

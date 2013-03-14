@@ -29,7 +29,29 @@ public:
     {
         return "greedy selector";
     }
+};
 
+template<typename State, unsigned int N>
+class greedy_nth : public selector_base<State>
+{
+    typedef State                               state_type;
+    typedef typename state_type::variable_type  variable_type;
+
+public:
+    bool is_applicable(state_type const& state)
+    {
+        return state.template has_greedy_nth<N>();
+    }
+
+    variable_type select(state_type& state)
+    {
+        return state.template most_greedy_nth<N>();
+    }
+
+    std::string const name() const
+    {
+        return "greedy<N> selector";
+    }
 };
 
 

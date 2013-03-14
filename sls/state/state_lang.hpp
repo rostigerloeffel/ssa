@@ -40,6 +40,13 @@ template<class T> struct is_base_type_const<T* const>       : std::false_type {}
 	typedef state state_type; \
 	INNER_STATE_TYPEDEFS(typename state_type::inner_state_type)
 
+#define this_state \
+    (*static_cast< \
+        typename std::conditional< \
+            is_base_type_const<decltype(*this)>::value, \
+        State const* const, \
+        State* const>::type>(this))
+
 #define get_inner_state \
 	(static_cast< \
 		typename std::conditional< \

@@ -40,7 +40,7 @@ public:
 private:
     inline void increase_clause_weights(state_type& state)
     {
-        for(auto clause : state.broken())
+        for(auto clause : state.unsats())
             inc_clause_weight(state, clause, weight_type(1));
     }
 
@@ -96,7 +96,7 @@ public:
 private:
     inline void increase_clause_weights(state_type& state)
     {
-        for(auto clause : state.broken())
+        for(auto clause : state.unsats())
             inc_clause_weight(state, clause, weight_type(1));
     }
 
@@ -146,14 +146,14 @@ public:
         else
             increase_clause_weights(state);
 
-        state.sd_bound(state.avg_weight());
+        //state.sd_bound(state.avg_weight());
         //state.sd_bound(298); //std::floor(state.avg_weight()));
     }
 
 private:
     inline void increase_clause_weights(state_type& state)
     {
-        for(auto clause : state.broken())
+        for(auto clause : state.unsats())
             inc_clause_weight(state, clause, weight_type(1));
     }
 

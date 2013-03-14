@@ -17,11 +17,15 @@
 #include "../facets/age_facet.hpp"
 #include "../facets/neighbour_facet.hpp"
 #include "../facets/greedy_score_tcc_facet.hpp"
+#include "../facets/greedy_sd_score_facet.hpp"
+#include "../facets/greedy_accessor_facet.hpp"
 #include "../facets/tcc_sender_facet.hpp"
 #include "../facets/score_sender_facet.hpp"
 #include "../facets/weight_facet.hpp"
+#include "../facets/avg_weight_facet.hpp"
 
 #include "../selectors/compositor.hpp"
+#include "../selectors/greedy.hpp"
 #include "../selectors/reweighting_selector.hpp"
 #include "../selectors/oldest.hpp"
 

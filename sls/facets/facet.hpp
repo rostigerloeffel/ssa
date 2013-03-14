@@ -25,7 +25,5 @@
 #define end_facet \
 	};
 
-#define this_state (*static_cast<State*>(this))
-
 
 #endif

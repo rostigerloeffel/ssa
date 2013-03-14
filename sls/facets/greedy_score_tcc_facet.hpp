@@ -51,11 +51,10 @@ public:
 
     facet_slot(tcc_inc, variable, diff)
     {
-        if(tcc(variable) == tcc_type(1) && 
-           score(variable) > score_type(0))
+        if(this_state.tcc(variable) == tcc_type(1) && 
+           this_state.score(variable) > score_type(0))
             greedy_.push(variable);
-
-        if(greedy_.contains(variable))
+        else if(greedy_.contains(variable))
             greedy_.update_after_inc(variable);
     }
 
@@ -67,7 +66,8 @@ public:
     facet_slot(tcc_reset, variable)
     {
         if(greedy_.contains(variable))
-            greedy_.update_after_dec(variable);
+        //    greedy_.update_after_dec(variable);
+            greedy_.remove(variable);
     }
 
     facet_slot(score_inc, variable, diff)
@@ -92,7 +92,7 @@ public:
                 greedy_.update_after_dec(variable);
         }
     }
-};
+end_facet
 
 
 template<typename State, typename InnerState>

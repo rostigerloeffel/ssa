@@ -1,7 +1,7 @@
 #include "swcc_factory.hpp"
 
 
-namespace ssa { namespace frontend {
+namespace sls { namespace frontend {
 
 
 template<typename State, typename InnerState>
@@ -9,14 +9,19 @@ using swqcca_facets = sls::facets::facet_compositor<
     State, InnerState,
     sls::facets::neighbour_facet<State, InnerState>,
     sls::facets::greedy_score_tcc_age_facet<State, InnerState>,
+    sls::facets::greedy_sd_score_age_facet<State, InnerState>,
     sls::facets::score_sender_facet<State, InnerState,
-    	sls::facets::greedy_score_tcc_age_facet<State, InnerState>>,
+    	sls::facets::greedy_score_tcc_age_facet<State, InnerState>,
+    	sls::facets::greedy_sd_score_age_facet<State, InnerState>>,
     sls::facets::tcc_sender_facet<State, InnerState,
     	sls::facets::greedy_score_tcc_age_facet<State, InnerState>>,
+   	sls::facets::greedy_accessor_facet<State, InnerState,
+   		sls::facets::greedy_score_tcc_age_facet<State, InnerState>,
+   	    sls::facets::greedy_sd_score_age_facet<State, InnerState>>,
     sls::facets::age_facet<State, InnerState>,
     sls::facets::truth_facet<State, InnerState>,
     sls::facets::watcher_facet<State, InnerState>,
-    sls::facets::weight_facet<State, InnerState>,
+    sls::facets::avg_weight_facet<State, InnerState>,
     sls::facets::unsat_facet<State, InnerState>
 >;
 
@@ -24,7 +29,7 @@ declare_state(swqcca,
     declare_sat_backend(standard::sat),
 
     declare_properties(
-            variable_props(truth, age, score, tcc, blocked, neighbours<typename sat::variable_type>),
+            variable_props(truth, age, score, tcc, blocked, neighbours<typename sat_type::variable_type>),
             literal_props(empty),
             clause_props(watcher2<typename sat_type::variable_type>, num_true_literals, weight)),
 
@@ -96,86 +101,87 @@ declare_state(swqcca,
 // } /* unnamed */
 
 
-// ssa::solvers::solver_base* const create_swcc_sat_solver(
+// sls::solvers::solver_base* const create_swcc_sat_solver(
 //                                             problem const& problem, 
 //                                             sls::util::commandline const& cmd)
 // {
 //     std::cerr << "c create swcc sat solver" << std::endl;
 //     typedef swcc_state_type state_type;
 
-//     return new ssa::solvers::gensat<state_type>(
+//     return new sls::solvers::gensat<state_type>(
 //                     problem,
-//                     *(new ssa::transitions::default_initializer<state_type>()),
-//                     *(new ssa::transitions::default_transitor<state_type>()),
+//                     *(new sls::transitions::default_initializer<state_type>()),
+//                     *(new sls::transitions::default_transitor<state_type>()),
 //                     new sls::selectors::compositor<state_type>
 //                     {
 //                         new sls::selectors::greedy<state_type>(),
 //                         new sls::selectors::reweighting_selector<state_type>(
 //                             new sls::selectors::oldest<state_type>(),
-//                             new ssa::reweight::swcc<state_type>())
+//                             new sls::reweight::swcc<state_type>())
 //                     });
 // }
 
-// ssa::solvers::solver_base* const create_swcca_sat_solver(
+// sls::solvers::solver_base* const create_swcca_sat_solver(
 //                                             problem const& problem, 
 //                                             sls::util::commandline const& cmd)
 // {
 //     std::cerr << "c create swcca sat solver" << std::endl;
 //     typedef swcca_state_type state_type;
 
-//     return new ssa::solvers::gensat<state_type>(
+//     return new sls::solvers::gensat<state_type>(
 //                     problem,
-//                     *(new ssa::transitions::default_initializer<state_type>()),
-//                     *(new ssa::transitions::default_transitor<state_type>()),
+//                     *(new sls::transitions::default_initializer<state_type>()),
+//                     *(new sls::transitions::default_transitor<state_type>()),
 //                     new sls::selectors::compositor<state_type>
 //                     {
 //                         new sls::selectors::ccd<state_type>(),
 //                         new sls::selectors::sd<state_type>(),
 //                         new sls::selectors::reweighting_selector<state_type>(
 //                             new sls::selectors::oldest<state_type>(),
-//                             new ssa::reweight::swcc<state_type>())
+//                             new sls::reweight::swcc<state_type>())
 //                     });
 // }
 
-// ssa::solvers::solver_base* const create_swqcc_sat_solver(
+// sls::solvers::solver_base* const create_swqcc_sat_solver(
 //                                             problem const& problem, 
 //                                             sls::util::commandline const& cmd)
 // {
 //     std::cerr << "c create swqcc sat solver" << std::endl;
 //     typedef swqcc_state_type state_type;
 
-//     return new ssa::solvers::gensat<state_type>(
+//     return new sls::solvers::gensat<state_type>(
 //                     problem,
-//                     *(new ssa::transitions::default_initializer<state_type>()),
-//                     *(new ssa::transitions::default_transitor<state_type>()),
+//                     *(new sls::transitions::default_initializer<state_type>()),
+//                     *(new sls::transitions::default_transitor<state_type>()),
 //                     new sls::selectors::compositor<state_type>
 //                     {
 //                         new sls::selectors::ccd<state_type>(),
 //                         new sls::selectors::reweighting_selector<state_type>(
 //                             new sls::selectors::oldest<state_type>(),
-//                             new ssa::reweight::swqcc<state_type>())
+//                             new sls::reweight::swqcc<state_type>())
 //                     });
 // }
 
-ssa::solvers::solver_base* const create_swqcca_sat_solver(
+sls::solvers::solver_base* const create_swqcca_sat_solver(
                                             problem const& problem, 
                                             sls::util::commandline const& cmd)
 {
     std::cerr << "c create swqcca sat solver" << std::endl;
 
-    return new ssa::solvers::gensat<swqcca::state>(
+    return new sls::solvers::gensat<swqcca::state>(
                     problem,
-                    *(new ssa::transitions::default_initializer<swqcca::state>()),
-                    *(new ssa::transitions::default_transitor<swqcca::state>()),
+                    *(new sls::transitions::default_initializer<swqcca::state>()),
+                    *(new sls::transitions::default_transitor<swqcca::state>()),
 
                     new sls::selectors::compositor<swqcca::state>
                     {
-                        new sls::selectors::greedy<swqcca::state>(),
+                        new sls::selectors::greedy_nth<swqcca::state, 1u>(),
+                        new sls::selectors::greedy_nth<swqcca::state, 2u>(),
                         new sls::selectors::reweighting_selector<swqcca::state>(
                             new sls::selectors::oldest<swqcca::state>(),
-                            new ssa::reweight::swqcca<swqcca::state>())
+                        	new sls::reweight::swqcca<swqcca::state>())
                     });
 }
 
 
-} /* frontend */ } /* ssa */
+} /* frontend */ } /* sls */

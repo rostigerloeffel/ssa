@@ -29,10 +29,15 @@ begin_facet(greedy_score_tcc,
                 comparator_type>                        greedy_store_type;
 
 private:
-    greedy_store_type   greedy_; 
+    greedy_store_type greedy_; 
 
 public:
     facet_constr(greedy_score_tcc, greedy_(0, {get_inner_state}))
+
+    void flush()
+    {
+//        std::cout << "ccd: " << greedy_.size() << std::endl;
+    }
 
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {

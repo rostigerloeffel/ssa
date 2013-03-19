@@ -311,10 +311,10 @@ std::ostream& operator<<(std::ostream& stream, mutable_priority_queue<ItemType, 
         stream << item << ", ";
     stream << ']' << std::endl;
 
-    stream << '[';
-    for(auto index : queue.indices_)
-        stream << index << ", ";
-    stream << ']' << std::endl;
+    // stream << '[';
+    // for(auto index : queue.indices_)
+    //     stream << index << ", ";
+    // stream << ']' << std::endl;
 
     return stream;
 }

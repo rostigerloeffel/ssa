@@ -28,14 +28,14 @@ inline sls::solvers::solver_base* const create_maxsat_solver(
                                                 problem const& problem, 
                                                 sls::util::commandline const& cmd)
 {
-    return create_walksat_sat_solver(problem, cmd);
+    return 0; //create_walksat_sat_solver(problem, cmd);
 }
 
 inline sls::solvers::solver_base* const create_weighted_maxsat_solver(
                                                 problem const& problem, 
                                                 sls::util::commandline const& cmd)
 {
-    return create_walksat_sat_solver(problem, cmd);
+    return 0; //create_walksat_sat_solver(problem, cmd);
 }
 
 inline sls::solvers::solver_base* const create_solver(

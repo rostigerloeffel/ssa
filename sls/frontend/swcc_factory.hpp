@@ -28,6 +28,7 @@
 #include "../selectors/greedy.hpp"
 #include "../selectors/reweighting_selector.hpp"
 #include "../selectors/oldest.hpp"
+#include "../selectors/reporting_selector.hpp"
 
 #include "../reweight/swcc.hpp"
 

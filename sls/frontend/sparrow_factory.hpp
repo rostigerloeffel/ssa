@@ -48,13 +48,13 @@ sls::solvers::solver_base* const create_sparrow_sat_solver(
                                             problem const& problem, 
                                             sls::util::commandline const& cmd);
 
-// sls::solvers::solver_base* const create_sparrow_maxsat_solver(
-//                                             problem const& problem, 
-//                                             sls::util::commandline const& cmd);
+sls::solvers::solver_base* const create_sparrow_maxsat_solver(
+                                            problem const& problem, 
+                                            sls::util::commandline const& cmd);
 
-// sls::solvers::solver_base* const create_sparrow_weighted_maxsat_solver(
-//                                             problem const& problem, 
-//                                             sls::util::commandline const& cmd);
+sls::solvers::solver_base* const create_sparrow_weighted_maxsat_solver(
+                                            problem const& problem, 
+                                            sls::util::commandline const& cmd);
 
 
 } /* frontend */ } /* sls */

@@ -28,6 +28,13 @@ private:
 public:
     facet_constr(greedy_sd_score, greedy_(0, {get_inner_state}))
 
+    void flush()
+    {
+        // std::cout << "sd: " << greedy_.size() << std::endl;
+        // std::cout << greedy_ << std::endl;
+        //std::cout << "sd " << sd_bound() << std::endl;
+    }
+
     void reset(std::vector<clause_type> const& clauses, size_t variable_count)
     {
         greedy_.resize(variable_count);
@@ -35,7 +42,7 @@ public:
 
     inline score_type sd_bound() const 
     {
-    	return score_type(this_state.avg_weight());
+    	return score_type(this_state.avg_weight() + 1);
     }
 
     inline bool has_greedy() const
@@ -50,11 +57,12 @@ public:
 
     facet_slot(score_inc, variable, diff)
     {
-        if(this_state.score(variable) > sd_bound() && 
-           this_state.score(variable) <= sd_bound() + diff)   
+        if(greedy_.contains(variable))
+            greedy_.update_after_inc(variable);        
+        else if(
+           this_state.score(variable) > sd_bound() && 
+           this_state.score(variable) <= sd_bound() + diff)
             greedy_.push(variable);
-        else if(greedy_.contains(variable))
-            greedy_.update_after_inc(variable);
     }
 
     facet_slot(score_dec, variable, diff)

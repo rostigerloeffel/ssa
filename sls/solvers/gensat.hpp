@@ -67,6 +67,14 @@ public:
 	        selector_->is_applicable(state);
 	        auto pick = selector_->select(state);
 
+	        // if(flips > 1000000)
+	        // {
+	        // 	std::cout 	<< "pick " << pick << '\n'
+	        // 				<< state.score(pick) << '\n'
+	        // 				<< state.tcc(pick) << '\n'
+	        // 				<< std::endl;
+	        // }
+
 	        ++flips;
 	        state.after_pick(flips, pick);
 

@@ -2,6 +2,7 @@
 #define _SLS_SELECTORS_GREEDY_HPP_
 
 
+#include <string>
 #include "selector_base.hpp"
 
 
@@ -50,7 +51,7 @@ public:
 
     std::string const name() const
     {
-        return "greedy<N> selector";
+        return "greedy<" + std::to_string(N) + "> selector";
     }
 };
 
